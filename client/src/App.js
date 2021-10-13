@@ -1,6 +1,8 @@
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Router, Redirect, Route, Switch } from "react-router-dom";
 import Header from "./components/header/Header";
 import New from "./pages/New";
+import Resume from "./pages/Resume";
+import history from "./history";
 //material ui
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./theme";
@@ -8,7 +10,7 @@ import theme from "./theme";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <Router history={history}>
         <div className="App">
           <Header />
           <Switch>
@@ -16,9 +18,10 @@ const App = () => {
               <Redirect to="/new" />
             </Route>
             <Route path="/new" component={New}></Route>
+            <Route path="/resume/:userId" component={Resume}></Route>
           </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     </ThemeProvider>
   );
 };

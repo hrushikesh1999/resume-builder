@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { updatePersonalData } from "../../../redux/actions/index";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
 //material ui
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,6 +27,13 @@ const PersonalDetails = () => {
     phone: "",
     address: "",
   });
+  const defaultValues = useSelector((state) => state.resume.personal);
+
+  useEffect(() => {
+    if (defaultValues && !_.isEqual(personal, defaultValues)) {
+      setPersonal((prevState) => ({ ...prevState, ...defaultValues }));
+    }
+  }, [defaultValues]);
   const dispatch = useDispatch();
   const classes = useStyles();
   const handleChange = (e) => {

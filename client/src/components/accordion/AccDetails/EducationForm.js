@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addEducationData } from "../../../../redux/actions";
+import { addEducationData } from "../../../redux/actions";
 //material ui
 import { makeStyles } from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";

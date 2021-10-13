@@ -1,10 +1,9 @@
-import React from "react";
-import MainAccordion from "../components/accordion/MainAccordion";
+import { Button, makeStyles } from "@material-ui/core";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createResume, setDownloadVisible } from "../redux/actions";
-//material ui
-import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
+import MainAccordion from "../components/accordion/MainAccordion";
+import { fetchResume, setDownloadVisible } from "../redux/actions";
 import Download from "./Download";
 
 const useStyles = makeStyles(() => ({
@@ -15,10 +14,14 @@ const useStyles = makeStyles(() => ({
     marginRight: "50px",
   },
 }));
-const New = () => {
-  const isDownloadVisible = useSelector((state) => state.isDownloadVisible);
+const Resume = () => {
   const dispatch = useDispatch();
+  const isDownloadVisible = useSelector((state) => state.isDownloadVisible);
   const classes = useStyles();
+  const params = useParams();
+  useEffect(() => {
+    dispatch(fetchResume(params.userId));
+  }, [dispatch, params.userId]);
 
   const resumeForm = () => {
     return (
@@ -29,7 +32,6 @@ const New = () => {
           color="secondary"
           className={classes.btn}
           onClick={() => {
-            dispatch(createResume());
             dispatch(setDownloadVisible(true));
           }}
         >
@@ -50,4 +52,4 @@ const New = () => {
   }
 };
 
-export default New;
+export default Resume;
